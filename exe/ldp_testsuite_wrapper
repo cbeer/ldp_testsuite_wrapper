@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'ldp_testsuite_wrapper'
+require 'byebug'
+
+LdpTestsuiteWrapper.default_instance.exec(ARGV)
