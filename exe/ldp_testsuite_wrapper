@@ -3,4 +3,7 @@
 require 'ldp_testsuite_wrapper'
 require 'byebug'
 
-LdpTestsuiteWrapper.default_instance.exec(ARGV)
+status, out = LdpTestsuiteWrapper.default_instance.exec(ARGV)
+
+puts out.read
+exit status.to_i
