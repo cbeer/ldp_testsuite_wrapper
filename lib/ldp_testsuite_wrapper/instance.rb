@@ -16,8 +16,8 @@ module LdpTestsuiteWrapper
     ##
     # @param [Hash] options
     # @option options [String] :url
-    # @option options [String] :download_dir Local directory to store the downloaded Solr zip and its md5 file in (overridden by :download_path)
-    # @option options [String] :download_path Local path for storing the downloaded Solr zip file
+    # @option options [String] :download_dir Local directory to store the downloaded test suite zip and its md5 file in (overridden by :download_path)
+    # @option options [String] :download_path Local path for storing the downloaded test suite zip file
     # @option options [Boolean] :verbose return verbose info when running commands
     # @option options [Hash] :env
     def initialize(options = {})
@@ -25,10 +25,9 @@ module LdpTestsuiteWrapper
     end
 
     ##
-    # Run a bin/solr command
+    # Run the LDP test suite
     # @param [Hash] options key-value pairs to transform into command line arguments
     # @return [StringIO] an IO object for the executed shell command
-    # @see https://github.com/apache/lucene-solr/blob/trunk/solr/bin/solr
     # If you want to pass a boolean flag, include it in the +options+ hash with its value set to +true+
     # the key will be converted into a boolean flag for you.
     def exec(options = {})
@@ -123,9 +122,9 @@ module LdpTestsuiteWrapper
 
     # rubocop:disable Lint/RescueException
 
-    # extract a copy of solr to instance_dir
-    # Does noting if solr already exists at instance_dir
-    # @return [String] instance_dir Directory where solr has been installed
+    # extract a copy of test suite to instance_dir
+    # Does noting if test suite already exists at instance_dir
+    # @return [String] instance_dir Directory where test suite has been installed
     def extract
       return instance_dir if extracted?
 
