@@ -94,7 +94,6 @@ module LdpTestsuiteWrapper
     ##
     # Clean up any files ldp_testsuite_wrapper may have downloaded
     def clean!
-      stop
       remove_instance_dir!
       FileUtils.remove_entry(download_path) if File.exist?(download_path)
       FileUtils.remove_entry(tmp_save_dir, true) if File.exist? tmp_save_dir
@@ -146,7 +145,7 @@ module LdpTestsuiteWrapper
 
       begin
         FileUtils.remove_dir(instance_dir, true)
-        FileUtils.cp_r File.join(tmp_save_dir, "ldp-testsuite-#{version}"), instance_dir
+        FileUtils.cp_r File.join(tmp_save_dir, zip_root_directory), instance_dir
       rescue Exception => e
         abort "Unable to copy #{tmp_save_dir} to #{instance_dir}: #{e.message}"
       end
@@ -216,6 +215,10 @@ module LdpTestsuiteWrapper
 
     def tmp_save_dir
       @tmp_save_dir ||= Dir.mktmpdir
+    end
+
+    def zip_root_directory
+      options.fetch(:zip_root_directory, "ldp-testsuite-#{version}")
     end
 
     def fetch_with_progressbar(url, output)
