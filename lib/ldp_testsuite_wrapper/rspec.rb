@@ -32,10 +32,18 @@ RSpec.shared_examples 'ldp test suite' do
 
   before do
     $response ||= {}
-    $response[test_suite_options] ||= ldp_testsuite.exec(test_suite_options.merge(server: url))
-  end
+    $response[test_suite_options] ||= begin
+      File.delete(report_path) if File.exist? report_path
+      status, stdout = ldp_testsuite.exec(test_suite_options.merge(server: url))
 
-  before do
+      # exitstatus 0: OK
+      # exitstatus 1: hard error
+      # exitstatus 2+: test suite failure
+      raise stdout.string if status.exitstatus == 1
+
+      status
+    end
+    
     expect(File).to exist(report_path)
   end
 
