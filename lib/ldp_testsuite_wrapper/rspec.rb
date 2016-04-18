@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'faraday'
 
 RSpec.shared_examples 'ldp test suite' do
   let(:report_path) { File.expand_path('test-output/testng-results.xml') }
